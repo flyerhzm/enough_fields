@@ -21,7 +21,7 @@ module EnoughFields
       Mongoid::Cursor.class_eval do
         def each
           @cursor.each do |document|
-            attributes = Attributes[document]
+            attributes = Attributes.build(@klass, document)
             yield Mongoid::Factory.build(@klass, attributes)
           end
         end

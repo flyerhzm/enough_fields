@@ -1,16 +1,25 @@
 module EnoughFields
   class Attributes < ActiveSupport::HashWithIndifferentAccess
-    def self.[](attributes)
-      hash = super
-      hash.each do |key, value|
-        hash[key] = AttributeValue.new(value)
-        Thread.current[:monit_hash][key] = [false, caller[4..-1]]
+    class <<self
+      attr_accessor :klass
+
+      def build(klass, attributes)
+        @klass = klass
+        self[attributes]
       end
-      hash
+
+      def [](attributes)
+        hash = super
+        hash.each do |key, value|
+          hash[ [@klass, key] ] = AttributeValue.new(value)
+          Thread.current[:monit_hash][ [@klass, key] ] = [false, caller[4..-1]]
+        end
+        hash
+      end
     end
 
     def [](key)
-      Thread.current[:monit_hash][key] = true
+      Thread.current[:monit_hash][ [self.class.klass, key] ] = true
       super && super.is_a?(AttributeValue) ? super.to_value : super
     end
   end

@@ -13,13 +13,11 @@ describe EnoughFields do
     Thread.current[:monit_hash] = EnoughFields::MonitHash.new
     p User.all.collect(&:email)
     # User.all.to_a
-    Thread.current[:monit_hash].each do |field, value|
+    Thread.current[:monit_hash].each do |klass_field, value|
+      klass, field = *klass_field
       used, call_stack = *value
-      puts field
+      puts "#{klass}.#{field}"
       puts used
-      unless used
-        puts call_stack.join("\n")
-      end
     end
   end
 end
