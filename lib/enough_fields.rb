@@ -1,3 +1,5 @@
+require 'uniform_notifier'
+
 module EnoughFields
   autoload :Rack, 'enough_fields/rack'
   autoload :AttributeValue, 'enough_fields/attribute_value'
