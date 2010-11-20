@@ -9,15 +9,13 @@ describe EnoughFields do
   end
 
   it "should" do
-    EnoughFields.enable
+    EnoughFields.enable = true
+    EnoughFields.growl = true
+    EnoughFields.start_request
     Thread.current[:monit_hash] = EnoughFields::MonitHash.new
     p User.all.collect(&:email)
     # User.all.to_a
-    Thread.current[:monit_hash].each do |klass_field, value|
-      klass, field = *klass_field
-      used, call_stack = *value
-      puts "#{klass}.#{field}"
-      puts used
-    end
+    EnoughFields.end_request
+    EnoughFields.perform_out_of_channel_notifications
   end
 end

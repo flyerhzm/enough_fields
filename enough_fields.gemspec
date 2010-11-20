@@ -13,9 +13,11 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "enough_fields"
-  
+
   s.add_dependency "uniform_notifier", "~> 1.0.0"
 
+  s.add_development_dependency "ruby-growl"
+  s.add_development_dependency "xmpp4r"
   s.add_development_dependency "bson", "1.1.2"
   s.add_development_dependency "bson_ext", "1.1.2"
   s.add_development_dependency "mongoid", "2.0.0.beta.20"
