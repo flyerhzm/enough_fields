@@ -23,10 +23,16 @@ module EnoughFields
       @enable = enable
       if enable?
         Mongoid::Cursor.class_eval do
+          alias_method :origin_each, :each
+
           def each
-            @cursor.each do |document|
-              attributes = Attributes.build(@klass, document)
-              yield Mongoid::Factory.build(@klass, attributes)
+            if @cursor.count > 1
+              @cursor.each do |document|
+                attributes = Attributes.build(@klass, document)
+                yield Mongoid::Factory.build(@klass, attributes)
+              end
+            else
+              :origin_each
             end
           end
         end
