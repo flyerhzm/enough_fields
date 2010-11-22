@@ -20,6 +20,8 @@ describe EnoughFields do
     EnoughFields.start_request
     Thread.current[:monit_set] = EnoughFields::MonitSet.new
     p User.all.collect(&:email)
+
+    p User.only(:email).collect(&:email)
     # User.all.to_a
     if EnoughFields.notification?
       EnoughFields.perform_out_of_channel_notifications

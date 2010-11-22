@@ -9,7 +9,7 @@ module EnoughFields
     end
 
     def full_notice
-      "add .only(#{(@klass.fields.keys - @fields).inspect}) for\n#{@call_stack.join("\n")}"
+      "add .only(#{(@fields - [:_id, :_type]).inspect}) for\n#{@call_stack.join("\n")}"
     end
 
     def notify_inline

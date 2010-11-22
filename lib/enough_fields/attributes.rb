@@ -26,7 +26,7 @@ module EnoughFields
       return super unless Thread.current[:monit_set]
 
       if super && super.is_a?(AttributeValue)
-        super.call_stack = nil
+        super.used = true
         super.to_value
       else
         super
