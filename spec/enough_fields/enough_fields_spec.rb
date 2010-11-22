@@ -1,5 +1,11 @@
 require "spec_helper"
 
+module Rails
+  def self.root
+    File.dirname(__FILE__)
+  end
+end
+
 describe EnoughFields do
 
   before :all do

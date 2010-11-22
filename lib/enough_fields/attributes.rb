@@ -14,7 +14,7 @@ module EnoughFields
         hash = super
         hash.each do |key, value|
           next if key.is_a? Array
-          attribute_value = AttributeValue.new(value, @klass, key, caller[4..8])
+          attribute_value = AttributeValue.new(value, @klass, key, caller.find_all { |c| c.index Rails.root })
           hash[ key ] = attribute_value
           Thread.current[:monit_set] << attribute_value
         end
