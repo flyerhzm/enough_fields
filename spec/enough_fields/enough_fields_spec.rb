@@ -19,7 +19,7 @@ describe EnoughFields do
     EnoughFields.growl = true
     EnoughFields.start_request
     Thread.current[:monit_set] = EnoughFields::MonitSet.new
-    p User.all.each {|user| [user.email, user.login]}
+    p User.all.collect {|user| [user.email, user.login]}
 
     p User.only(:email).collect(&:email)
     # User.all.to_a
