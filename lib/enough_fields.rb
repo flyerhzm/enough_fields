@@ -66,6 +66,7 @@ module EnoughFields
 
     def end_request
       Thread.current[:monit_set] = nil
+      @notifications = nil
     end
 
     def notification?
