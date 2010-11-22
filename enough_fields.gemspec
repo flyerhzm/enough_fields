@@ -5,11 +5,11 @@ Gem::Specification.new do |s|
   s.name        = "enough_fields"
   s.version     = EnoughFields::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = []
-  s.email       = []
+  s.authors     = ['Richard Huang']
+  s.email       = ['flyerhzm@gmail.com']
   s.homepage    = "http://rubygems.org/gems/enough_fields"
-  s.summary     = "TODO: Write a gem summary"
-  s.description = "TODO: Write a gem description"
+  s.summary     = "help to use specified fields for mongoid"
+  s.description = "help to use specified fields for mongoid"
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "enough_fields"
