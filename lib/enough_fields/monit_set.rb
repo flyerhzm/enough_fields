@@ -25,7 +25,7 @@ module EnoughFields
       results.each do |call_stack_klass, results|
         call_stack, klass = *call_stack_klass
         if results.find { |result| !result.used? }
-          EnoughFields.add_notification(call_stack, klass, results.collect { |result| result.field if result.used? }.compact)
+          EnoughFields.add_notification(call_stack, klass, results.find_all { |result| result.used? }.collect(&:field))
         end
       end
     end
