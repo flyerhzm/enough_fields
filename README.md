@@ -26,6 +26,7 @@ EnoughFields won't do ANYTHING unless you tell it to explicitly. Append to <code
 The notifier of enough_fields is a wrap of "uniform_notifier":https://github.com/flyerhzm/uniform_notifier
 
 The code above will enable all six of the EnoughFields notification systems:
+
 * <code>EnoughFields.enable</code>: enable EnoughFields plugin/gem, otherwise do nothing
 * <code>EnoughFields.alert</code>: pop up a JavaScript alert in the browser
 * <code>EnoughFields.enough_fields_logger</code>: log to the EnoughFields log file (Rails.root/log/enough_fields.log)
@@ -39,6 +40,7 @@ Growl Support
 -------------
 
 To get Growl support up-and-running for EnoughFields, follow the steps below:
+
 * Install the ruby-growl gem: <code>gem install ruby-growl</code>
 * Open the Growl preference pane in Systems Preferences
 * Click the "Network" tab
@@ -55,6 +57,7 @@ XMPP/Jabber Support
 -------------------
 
 To get XMPP support up-and-running for EnoughFields, follow the steps below:
+
 * Install the xmpp4r gem: <code>gem install xmpp4r</code>
 * Make both the enough_fields and the recipient account add each other as contacts.
   This will require you to manually log into both accounts, add each other
