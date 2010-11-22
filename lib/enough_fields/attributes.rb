@@ -9,23 +9,28 @@ module EnoughFields
       end
 
       def [](attributes)
-        return super unless Thread.current[:monit_hash]
+        return super unless Thread.current[:monit_set]
 
         hash = super
         hash.each do |key, value|
           next if key.is_a? Array
-          hash[ [@klass, key] ] = AttributeValue.new(value)
-          Thread.current[:monit_hash][ [@klass, key] ] = [false, caller[4..-1]]
+          attribute_value = AttributeValue.new(value, @klass, key, caller[4..8])
+          hash[ key ] = attribute_value
+          Thread.current[:monit_set] << attribute_value
         end
         hash
       end
     end
 
     def [](key)
-      return super unless Thread.current[:monit_hash]
+      return super unless Thread.current[:monit_set]
 
-      Thread.current[:monit_hash][ [self.class.klass, key] ] = true
-      super && super.is_a?(AttributeValue) ? super.to_value : super
+      if super && super.is_a?(AttributeValue)
+        super.call_stack = nil
+        super.to_value
+      else
+        super
+      end
     end
   end
 end

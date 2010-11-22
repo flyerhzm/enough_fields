@@ -5,7 +5,7 @@ module EnoughFields
   autoload :AttributeValue, 'enough_fields/attribute_value'
   autoload :Notification, 'enough_fields/notification'
   autoload :Attributes, 'enough_fields/attributes'
-  autoload :MonitHash, 'enough_fields/monit_hash'
+  autoload :MonitSet, 'enough_fields/monit_set'
 
   if defined? Rails::Railtie
     class EnoughFieldsRailtie < Rails::Railtie
@@ -55,20 +55,20 @@ module EnoughFields
     end
 
     def start_request
-      Thread.current[:monit_hash] = MonitHash.new
+      Thread.current[:monit_set] = MonitSet.new
     end
 
     def end_request
-      Thread.current[:monit_hash] = nil
+      Thread.current[:monit_set] = nil
     end
 
     def notification?
-      current_monit_hash.check_notifications
+      current_monit_set.check_notifications
       !notifications.empty?
     end
 
-    def add_notification(klass, field, call_stack)
-      notification = Notification.new(klass, field, call_stack)
+    def add_notification(call_stack, klass, fields)
+      notification = Notification.new(call_stack, klass, fields)
       notifications << notification
     end
 
@@ -87,12 +87,8 @@ module EnoughFields
     end
 
     private
-      def current_monit_hash=(monit_hash)
-        Thread.current[:monit_hash] = monit_hash
-      end
-
-      def current_monit_hash
-        Thread.current[:monit_hash]
+      def current_monit_set
+        Thread.current[:monit_set]
       end
 
       def notifications

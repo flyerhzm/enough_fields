@@ -2,14 +2,14 @@ module EnoughFields
   class Notification
     attr_accessor :notifier
 
-    def initialize(klass, field, call_stack)
-      @klass = klass
-      @field = field
+    def initialize(call_stack, klass, fields)
       @call_stack = call_stack
+      @klass = klass
+      @fields = fields
     end
 
     def full_notice
-      "#@klass##@field\n#@call_stack"
+      "add .only(#{(@klass.fields.keys - @fields).inspect}) for\n#{@call_stack.join("\n")}"
     end
 
     def notify_inline
